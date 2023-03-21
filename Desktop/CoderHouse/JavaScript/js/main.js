@@ -1,4 +1,45 @@
-class Productos {
+const listaDeProductos = [
+    { id: 01, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal.", size:"Corte artesanal 110gr. aproximadamente", precio: 490, img: "../assets/img/jabon-avena.jpeg" },
+    { id: 02, nombre: "JABÓN DE CAFÉ DETOX", descripcion: "Exfoliante detox, desintoxica, elimina células muertas e impurezas, reactiva la circulación, previene la aparición de las arañitas y previene celulitis. Enriquecido con café y con avena, Sin químicos, ni crueldad animal.", size:"Corte artesanal 110gr. aproximadamente", precio: 490, img: "../assets/img/jabon-cafe.jpeg" },
+    { id: 03, nombre: "SHAMPOO SÓLIDO NORMAL", descripcion: "Ésta variedad es ideal para todo tipo de pelo, es nutritivo, evita la anticaspa y la caída. Realizado con materia prima 100% natural⁣, con tensioactivo SCI, arcillas hierbas y aceites vegetales. Sin químicos, ni crueldad animal.", size:"80gr rinde 60/70 lavados aproximadamente", precio: 490, img: "../assets/img/galeria5.jpeg" },
+    /*{id: 04, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+    {id: 05, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+    {id: 06, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+    {id: 07, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+    {id: 08, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+    {id: 09, nombre: "JABÓN DE AVENA", descripcion: "Cremoso y delicado, indicado para piel sensible, propensa a irritaciones y enrojecimiento, sin aroma. Jabón saponificado en frío.Elaborado con aceites y mantecas vegetales, enriquecido con avena. Sin químicos, ni crueldad animal. Corte artesanal 110gr. aproximadamente", precio: 490}
+*/
+]
+
+const contenedorProductos = document.getElementById("contenedor-productos")
+
+listaDeProductos.forEach( producto => {
+    contenedorProductos.innerHTML += `
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src=${producto.img} class="img-fluid rounded-start"
+                                    alt="jabon de avena">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body wow animate__animated animate__bounceIn">
+                                    <h5 class="card-title">${producto.nombre}</h5>
+                                    <p class="card-text">${producto.descripcion}</p>
+                                    <small class="text-muted">${producto.size}</small>
+                                    <small class="fs-4">$${producto.precio}</small>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                    <button class="btn btn-success" type="button">Agregar al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+})
+
+/*class Productos {
     constructor(id, nombre, precio, cantidad) {
         this.id = id
         this.nombre = nombre
@@ -109,4 +150,4 @@ let listaDeCompra = listaCompraUsuario
 const carritoUsuario = new Carrito(listaCompraUsuario)
 
 console.log("Precio Total: $" + carritoUsuario.calcularPrecioTotal())
-alert("Precio Total: $" + carritoUsuario.calcularPrecioTotal())
+alert("Precio Total: $" + carritoUsuario.calcularPrecioTotal())*/
