@@ -17,7 +17,7 @@ class ProdController {
         this.contenedorProductos.innerHTML = ""
 
         this.listaDeProductos.forEach(producto => {
-        this.contenedorProductos.innerHTML += `
+            this.contenedorProductos.innerHTML += `
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -64,6 +64,7 @@ class CartController {
 
         if (traerJson) {
             this.listaDeCarrito = JSON.parse(traerJson)
+            this.mandarPrecioalDom
             return true
         } else return false
     }
@@ -124,11 +125,35 @@ class CartController {
         })
     }
 
-    cargarDatos(){
-        contenedorFormulario.innerHTML +=`
-        //aca añadimos el bootstrap form para que complete el usuario
-        `
-
+    cargarDatos() {
+        contenedorFormulario.innerHTML += `
+    <form id="formulario" class="row g-3" >
+        <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="jose@mail.com.ar">
+        </div>
+        <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Nombre y Apellido</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Jose Gonzalez">
+        </div>
+        <div class="col-12">
+        <label for="inputAddress" class="form-label">Dirección</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="Av. Santa FE 1234">
+        </div>
+        <div class="col-md-4">
+        <label for="inputState" class="form-label">Forma de Pago:</label>
+        <select id="inputState" class="form-select">
+            <option selected>Seleccionar</option>
+            <option>Efectivo</option>
+        </select>
+        </div>
+        <div class="col-12">
+        </div>
+        <div class="col-12">
+        <button type="submit" class="btn btn-primary">Finalizar</button>
+        </div>
+    </form >
+    `
     }
 
     mandarAlDom() {
@@ -161,6 +186,7 @@ class CartController {
             this.mandarAlDom()
             this.mandarPrecioalDom()
             this.cargarDatos()
+            
             ///añadir el evento de cargar datos dentro del evento añadir el alert
         })
 
