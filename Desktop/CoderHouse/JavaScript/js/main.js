@@ -4,14 +4,6 @@ class ProdController {
         this.contenedorProductos = document.getElementById("contenedor-productos")
     }
 
-    levantar() {
-        let traerJson = localStorage.getItem("listaDeProductos")
-
-        if (traerJson) {
-            this.listaDeProductos = JSON.parse(traerJson)
-        }
-    }
-
     mandarAlDom() {
 
         this.contenedorProductos.innerHTML = ""
@@ -39,6 +31,17 @@ class ProdController {
             `
         })
     }
+
+    levantarProductosJson(controladorCarrito) {
+        fetch("../js/productos.json")
+        .then(resp =>resp.json())
+        .then(listaDeProductos => {
+            this.listaDeProductos = listaDeProductos
+            this.mandarAlDom()
+            this.eventoAnadiralCarrito(controladorCarrito)
+        })
+    }
+    
     eventoAnadiralCarrito(controladorCarrito) {
         this.listaDeProductos.forEach(producto => {
             const subirAlDom = document.getElementById(`btnProd${producto.id}`)
@@ -58,6 +61,7 @@ class CartController {
         this.contenedorCarrito = document.getElementById("contenedor-carrito")
         this.precio = document.getElementById("precio")
         this.finalizarCompra = document.getElementById("btnFinalizarcompra")
+        this.contenedorFormulario = document.getElementById("contenedor-formulario")
     }
     levantar() {
         let traerJson = localStorage.getItem("listaDeCarrito")
@@ -126,7 +130,7 @@ class CartController {
     }
 
     cargarDatos() {
-        contenedorFormulario.innerHTML += `
+        this.contenedorFormulario.innerHTML += `
     <form id="formulario" class="row g-3" >
         <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>
@@ -134,7 +138,7 @@ class CartController {
         </div>
         <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Nombre y Apellido</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Jose Gonzalez">
+        <input type="name" class="form-control" id="inputPassword4" placeholder="Jose Gonzalez">
         </div>
         <div class="col-12">
         <label for="inputAddress" class="form-label">Dirección</label>
@@ -148,9 +152,8 @@ class CartController {
         </select>
         </div>
         <div class="col-12">
+            <button type="submit" id="btnFin" class="btn btn-primary">Finalizar</button>
         </div>
-        <div class="col-12">
-        <button type="submit" class="btn btn-primary">Finalizar</button>
         </div>
     </form >
     `
@@ -186,19 +189,71 @@ class CartController {
             this.mandarAlDom()
             this.mandarPrecioalDom()
             this.cargarDatos()
-            
-            ///añadir el evento de cargar datos dentro del evento añadir el alert
-        })
-
+            let timerInterval
+                Swal.fire({
+                title: 'Para completar la compra, ',
+                html: 'Porfavor cerrar el carrito y completar el formulario al pie de pagina. Muchas Gracias',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    //const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    Swal.getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+                })
+                this.comprar()
+            })
+        
     }
-}
+    comprar()   {
+            let finalizar = document.getElementById("btnFin")
+            
+            finalizar.addEventListener("click", () => {
+                let nombre = document.getElementById("inputPassword4").value
+            let timerInterval
+                Swal.fire({
+                title: 'Muchas Gracias por tu compra ' + nombre,
+                html: 'Porfavor cerrar el carrito y completar el formulario al pie de pagina. Muchas Gracias',
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    //const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    Swal.getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+                
+                })
+            this.contenedorFormulario.innerHTML = "" 
+            })
+        }
+    }
 //DOM
 let contenedorFormulario = document.getElementById("contenedor-formulario")
 //Objetos
 const controladorProductos = new ProdController()
 const controladorCarrito = new CartController()
 //Traigo del Storage
-controladorProductos.levantar()
+controladorProductos.levantarProductosJson(controladorCarrito)
 const carritoLleno = controladorCarrito.levantar()
 //actualizo el precio si se cae la pag.
 if (carritoLleno) {
