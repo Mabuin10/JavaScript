@@ -193,7 +193,7 @@ class CartController {
                 Swal.fire({
                 title: 'Para completar la compra, ',
                 html: 'Porfavor cerrar el carrito y completar el formulario al pie de pagina. Muchas Gracias',
-                timer: 2000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()
@@ -217,14 +217,16 @@ class CartController {
     }
     comprar()   {
             let finalizar = document.getElementById("btnFin")
-            
+            //Falta agregar que los campos sean obligatorios
             finalizar.addEventListener("click", () => {
                 let nombre = document.getElementById("inputPassword4").value
-            let timerInterval
+                let direccion = document.getElementById("inputAddress").value
+                let mail = document.getElementById("inputEmail4").value
+                let timerInterval
                 Swal.fire({
                 title: 'Muchas Gracias por tu compra ' + nombre,
-                html: 'Porfavor cerrar el carrito y completar el formulario al pie de pagina. Muchas Gracias',
-                timer: 5000,
+                html: 'El pedido sera enviado dentro de los proximos dias a '+ direccion + '. Cualquier inconveniente nos comunicaremos a ' + mail,
+                timer: 7000,
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()
@@ -252,8 +254,9 @@ let contenedorFormulario = document.getElementById("contenedor-formulario")
 //Objetos
 const controladorProductos = new ProdController()
 const controladorCarrito = new CartController()
-//Traigo del Storage
+//Traigo del archivo json
 controladorProductos.levantarProductosJson(controladorCarrito)
+//traigo del storage
 const carritoLleno = controladorCarrito.levantar()
 //actualizo el precio si se cae la pag.
 if (carritoLleno) {
