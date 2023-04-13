@@ -46,6 +46,11 @@ class ProdController {
         this.listaDeProductos.forEach(producto => {
             const subirAlDom = document.getElementById(`btnProd${producto.id}`)
             subirAlDom.addEventListener("click", () => {
+                Swal.fire({
+                    text: 'Producto Añadido al carrito',
+                    icon: 'success',
+                    confirmButtonColor: '#ff6949',
+                })
                 controladorCarrito.cargarCarrito(producto)
                 controladorCarrito.levantar()
                 controladorCarrito.mandarAlDom()
@@ -191,7 +196,7 @@ class CartController {
             this.cargarDatos()
             let timerInterval
                 Swal.fire({
-                title: 'Para completar la compra, ',
+                title: 'Para completar la compra. . .  ',
                 html: 'Porfavor cerrar el carrito y completar el formulario al pie de pagina. Muchas Gracias',
                 timer: 5000,
                 timerProgressBar: true,
@@ -237,8 +242,8 @@ class CartController {
                 let timerInterval
                 Swal.fire({
                 title: 'Muchas Gracias por tu compra ' + nombre,
-                html: 'El pedido sera enviado dentro de los proximos dias a '+ direccion + '. Cualquier inconveniente nos comunicaremos a ' + mail,
-                timer: 7000,
+                html: 'El pedido será enviado dentro de los proximos días a '+ direccion + '. Cualquier inconveniente nos comunicaremos a ' + mail,
+                timer: 9000,
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()
