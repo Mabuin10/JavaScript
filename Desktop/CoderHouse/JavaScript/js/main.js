@@ -217,11 +217,23 @@ class CartController {
     }
     comprar()   {
             let finalizar = document.getElementById("btnFin")
-            //Falta agregar que los campos sean obligatorios
             finalizar.addEventListener("click", () => {
                 let nombre = document.getElementById("inputPassword4").value
                 let direccion = document.getElementById("inputAddress").value
                 let mail = document.getElementById("inputEmail4").value
+                let error = document.getElementById("on-error")
+                let mensajeerror = []
+                if (nombre.value === '' || nombre.value === null){    
+                mensajeerror.push("Ingresa tu nombre")
+                }
+                if (mail.value === '' || mail.value === null){    
+                    mensajeerror.push("Ingresa tu Email")
+                    }
+                if (direccion.value === '' || direccion.value === null){    
+                        mensajeerror.push("Ingresa tu Direccion")
+                    }
+                error.innerHTML = mensajeerror.join (' , ')
+
                 let timerInterval
                 Swal.fire({
                 title: 'Muchas Gracias por tu compra ' + nombre,
